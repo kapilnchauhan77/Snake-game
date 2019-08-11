@@ -1,0 +1,233 @@
+import simplegui    
+x=50
+y=150
+move=True
+def tick():
+    global move
+    move=not move
+global x1,x2,x3,x4,y1,y2,y3,y4
+x1=x-14
+y1=y-14
+x2=x-26
+y2=y-26
+x3=x-36
+y3=y-36
+x4=x-44
+y4=y-44
+
+u=False
+d=False
+l=False
+r=False
+def up():
+    global u,d,l,r
+    u=True
+    d=False
+    l=False
+    r=False
+def down():
+    global u,d,l,r
+    u=False
+    l=False
+    r=False
+    d=True
+def right():
+    global u,d,l,r
+    r=True
+    u=False
+    d=False
+    l=False
+    
+def left():
+    global u,d,l,r
+    l=True
+    u=False
+    d=False
+    r=False
+def kd(k):
+    if simplegui.KEY_MAP['left']==k:
+        left()
+    if simplegui.KEY_MAP['right']==k:
+        right()
+    if simplegui.KEY_MAP['up']==k:
+        up()
+    if simplegui.KEY_MAP['down']==k:
+        down()
+    
+# Handler to draw on canvas
+def draw(canvas):
+    global x,y,u,d,l,r,x1,x2,x3,x4,y1,y2,y3,y4,frame2
+    canvas.draw_circle([x,y],10,4,"Red",'red')
+    canvas.draw_circle([x1,y1],8,4,"Red",'red')
+    canvas.draw_text('Level 1',[150,100],20,'Yellow')
+    canvas.draw_circle([x2,y2],6,4,"Red",'red')
+    canvas.draw_circle([x3,y3],4,4,"Red",'red')
+    canvas.draw_circle([x4,y4],2,4,"Red",'red')
+    canvas.draw_circle([x,y],2,1,"white")
+    canvas.draw_circle([150,25],10,4,'white','white')
+    canvas.draw_polygon([[150,25],[153,25],[150,28],[153,28]],4,'Yellow')
+    canvas.draw_circle([50,120],10,4,'green','green')
+    if x<=164 and x>=136 and y>=11 and y<=39:
+        l=False
+        u=False
+        d=False
+        r=False
+        canvas.draw_text('You have won',[25,175],25,'yellow')
+    if x<=64 and x>=36 and y>=116 and y<=134:
+        l=False
+        u=False
+        d=False
+        r=False
+        canvas.draw_text('You have lost',[25,175],25,'yellow')    
+            
+
+    if r:
+        x=x+1
+        x1=x-14
+        y1=y
+        x2=x-26
+        y2=y
+        x3=x-36
+        y3=y
+        x4=x-44
+        y4=y
+        if move:
+            x1=x1+1
+            x2=x2+2
+            x3=x3+3
+            x4=x4+4
+            y1=y1+1
+            y2=y2+2
+            y3=y3+3
+            y4=y4+4
+            
+            
+        else:
+            x1=x1-1
+            x2=x2-2
+            x3=x3-3
+            x4=x4-4
+            y1=y1-1
+            y2=y2-2
+            y3=y3-3
+            y4=y4-4
+            
+        if x==300:
+            x=0
+        elif x==0:
+            x=300
+    if l:
+        x=x-1
+        if x==0:
+            x=300
+        x1=x+14
+        y1=y
+        x2=x+26
+        y2=y
+        x3=x+36
+        y3=y
+        x4=x+44
+        y4=y
+        if move:
+            x1=x1+1
+            x2=x2+2
+            x3=x3+3
+            x4=x4+4
+            y1=y1+1
+            y2=y2+2
+            y3=y3+3
+            y4=y4+4
+            
+            
+        else:
+            x1=x1-1
+            x2=x2-2
+            x3=x3-3
+            x4=x4-4
+            y1=y1-1
+            y2=y2-2
+            y3=y3-3
+            y4=y4-4
+            
+
+    if d:
+        y=y+1
+        if y==200:
+            y=0
+        x1=x
+        y1=y-14
+        x2=x
+        y2=y-26
+        x3=x
+        y3=y-36
+        x4=x
+        y4=y-44
+        if move:
+            x1=x1+1
+            x2=x2+2
+            x3=x3+3
+            x4=x4+4
+            y1=y1+1
+            y2=y2+2
+            y3=y3+3
+            y4=y4+4
+            
+            
+        else:
+            x1=x1-1
+            x2=x2-2
+            x3=x3-3
+            x4=x4-4
+            y1=y1-1
+            y2=y2-2
+            y3=y3-3
+            y4=y4-4
+            
+
+    if u:
+        y=y-1
+        if y==0:
+            y=200
+        x1=x
+        y1=y+14
+        x2=x
+        y2=y+26
+        x3=x
+        y3=y+36
+        x4=x
+        y4=y+44
+        if move:
+            x1=x1+1
+            x2=x2+2
+            x3=x3+3
+            x4=x4+4
+            y1=y1+1
+            y2=y2+2
+            y3=y3+3
+            y4=y4+4
+            
+            
+        else:
+            x1=x1-1
+            x2=x2-2
+            x3=x3-3
+            x4=x4-4
+            y1=y1-1
+            y2=y2-2
+            y3=y3-3
+            y4=y4-4
+            
+
+     
+      
+  
+
+# Create a frame and assign callbacks to event handlers
+frame = simplegui.create_frame("Level 1", 300, 200)
+time=simplegui.create_timer(500,tick)
+frame.set_keydown_handler(kd)
+frame.set_draw_handler(draw)
+
+# Start the frame animation
+frame.start()
+time.start()
